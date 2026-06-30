@@ -1,0 +1,51 @@
+services:
+  # ── Backend: API + scraper + IA (Web Service, Docker) ──────────────────
+  - type: web
+    name: jobtrack-ai-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      # Completar a mano en el dashboard de Render (Settings → Environment):
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: SEARCH_COUNTRY
+        sync: false
+      - key: DEFAULT_KEYWORDS
+        sync: false
+
+  # ── Frontend: React/Vite, Static Site (sin cold start) ─────────────────
+  - type: web
+    name: jobtrack-ai-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_FB_API_KEY
+        sync: false
+      # IMPORTANTE: completar a mano con la URL pública del backend
+      # (ej. https://jobtrack-ai-backend.onrender.com) una vez que el
+      # backend ya esté deployado y tenga su URL asignada. No se puede
+      # auto-completar porque la URL pública solo existe después del
+      # primer deploy del backend — el orden de deploy importa acá.
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
