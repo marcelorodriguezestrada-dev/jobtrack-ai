@@ -16,3 +16,4 @@ ENV PORT=3000
 EXPOSE 3000
 
 CMD ["node", "server.js"]
+# cache bust mi.,  1 de jul. de 2026  6:50:24
