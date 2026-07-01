@@ -4,7 +4,7 @@ import JobDashboard from './components/JobDashboard'
 import './App.css'
 
 function AppContent() {
-  const { user, loading, logout } = useAuth()
+  const { user, token, loading, logout } = useAuth()
 
   if (loading) {
     return <div className="app-loading">Cargando…</div>
@@ -14,7 +14,7 @@ function AppContent() {
     return <AuthScreen />
   }
 
-  return <JobDashboard userEmail={user.email} onLogout={logout} />
+  return <JobDashboard userEmail={user.email} token={token} onLogout={logout} />
 }
 
 export default function App() {
