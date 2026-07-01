@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import ProfileModal from "./ProfileModal";
 
 const API = import.meta.env.VITE_API_URL || "https://jobtrack-ai-backend.onrender.com";
+const [showProfile, setShowProfile] = useState(false);
 
 const ESTADO_CONFIG = {
   new:       { label: "Nuevo",      color: "#00ff88", bg: "rgba(0,255,136,0.1)" },
@@ -316,7 +317,6 @@ export default function JobDashboard({ userEmail = "", token, onLogout }) {
         </div>
         <div style={s.headerRight}>
           <button style={s.btnInsights} onClick={handleInsights}>💡 Insights</button>
-          const [showProfile, setShowProfile] = useState(false);
           <button style={s.btnInsights} onClick={() => setShowProfile(true)}>⚙ Perfil</button>
           <span style={s.userEmail}>{userEmail}</span>
           <button style={s.btnLogout} onClick={onLogout}>Salir</button>
