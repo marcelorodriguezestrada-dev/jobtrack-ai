@@ -45,6 +45,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.use(express.json());
 
 // Health check público (sin auth) — lo usa Render para saber si el
 // servicio está vivo. No expone datos, solo confirma que el proceso responde.
