@@ -1,5 +1,6 @@
 import { AuthProvider, useAuth } from './hooks/useAuth'
 import AuthScreen from './components/AuthScreen'
+import JobDashboard from './components/JobDashboard'
 import './App.css'
 
 function AppContent() {
@@ -13,20 +14,7 @@ function AppContent() {
     return <AuthScreen />
   }
 
-  return (
-    <div className="app-shell">
-      <header className="app-header">
-        <span className="app-header-brand">jobtrack<span className="app-header-accent">.ai</span></span>
-        <div className="app-header-user">
-          <span>{user.email}</span>
-          <button onClick={logout} className="app-logout">Salir</button>
-        </div>
-      </header>
-      <main className="app-main">
-        <p>Sesión iniciada. Acá va el dashboard de jobs.</p>
-      </main>
-    </div>
-  )
+  return <JobDashboard userEmail={user.email} onLogout={logout} />
 }
 
 export default function App() {
