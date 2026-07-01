@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import ProfileModal from "./ProfileModal";
 
 const API = import.meta.env.VITE_API_URL || "https://jobtrack-ai-backend.onrender.com";
-const [showProfile, setShowProfile] = useState(false);
 
 const ESTADO_CONFIG = {
   new:       { label: "Nuevo",      color: "#00ff88", bg: "rgba(0,255,136,0.1)" },
@@ -26,8 +25,6 @@ async function apiFetch(path, token, opts = {}) {
   if (!res.ok) throw new Error(`Error ${res.status}`);
   return res.json();
 }
-
-// ── Cover Letter Modal ────────────────────────────────────────────────────────
 
 function CoverModal({ job, token, onClose, onApply }) {
   const [text, setText] = useState("");
@@ -108,8 +105,6 @@ function CoverModal({ job, token, onClose, onApply }) {
   );
 }
 
-// ── Analysis Panel ────────────────────────────────────────────────────────────
-
 function AnalysisPanel({ job, onClose }) {
   if (!job?.ai_analysis) return null;
   const a = typeof job.ai_analysis === "string"
@@ -177,9 +172,9 @@ function AnalysisPanel({ job, onClose }) {
   );
 }
 
-// ── Main Dashboard ────────────────────────────────────────────────────────────
-
 export default function JobDashboard({ userEmail = "", token, onLogout }) {
+  // ── todos los hooks adentro del componente ──
+  const [showProfile, setShowProfile] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [filtro, setFiltro] = useState("todos");
   const [loading, setLoading] = useState(true);
@@ -301,13 +296,9 @@ export default function JobDashboard({ userEmail = "", token, onLogout }) {
           </div>
         </div>
       )}
-
-            // Antes del header, junto a los otros modales:
-            {showProfile && (
-            <ProfileModal token={token} onClose={() => setShowProfile(false)} />
-            )}
-
-
+      {showProfile && (
+        <ProfileModal token={token} onClose={() => setShowProfile(false)} />
+      )}
 
       <header style={s.header}>
         <div style={s.logo}>
