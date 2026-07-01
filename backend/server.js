@@ -37,8 +37,14 @@ const {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: [
+    'https://jobtrack-ai-frontend.onrender.com',
+    'http://localhost:5173',
+  ],
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Health check público (sin auth) — lo usa Render para saber si el
 // servicio está vivo. No expone datos, solo confirma que el proceso responde.
